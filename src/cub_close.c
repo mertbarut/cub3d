@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_close.c                                        :+:      :+:    :+:   */
+/*   cub_close.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 20:45:07 by mbarut            #+#    #+#             */
-/*   Updated: 2021/07/28 16:51:02 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/12 23:23:22 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "cub.h"
 
-int	fdf_close(int keycode, t_data *fdf)
+int	cub_close(int keycode, t_data *cub)
 {
 	if (keycode == 0xFF1B)
 	{
-		map_reset(fdf);
-		pixels_free(&fdf->map);
-		mlx_destroy_image(fdf->mlx, fdf->img);
-		mlx_destroy_window(fdf->mlx, fdf->win);
-		mlx_destroy_display(fdf->mlx);
-		free(fdf->mlx);
-		exit(0);
+		//map_reset(cub);
+		//pixels_free(&cub->map);
+		mlx_destroy_image(cub->mlx, cub->img);
+		mlx_destroy_window(cub->mlx, cub->win);
+		mlx_destroy_display(cub->mlx);
+		free(cub->mlx);
+		exit(EXIT_SUCCESS);
 	}
+	return (0);
 }

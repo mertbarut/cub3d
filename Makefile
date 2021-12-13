@@ -6,19 +6,16 @@
 #    By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/25 22:19:01 by mbarut            #+#    #+#              #
-#    Updated: 2021/12/12 14:16:55 by mbarut           ###   ########.fr        #
+#    Updated: 2021/12/12 23:29:38 by mbarut           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=fdf
+NAME=cub3d
 
-SRC=src/fdf_init.c			src/fdf_read.c			src/fdf_map.c			\
-	src/fdf_close.c															\
-	src/map_init.c			src/map_draw.c			src/map_move.c			\
-	src/map_reset.c															\
-	src/pixel_new.c			src/pixel_put.c			src/pixels_free.c		\
-	src/gnl_column_count.c													\
-	src/map_render.c	
+SRC=src/cub_close.c			src/cub_draw.c			src/cub_init.c			\
+	src/cub_read.c			src/cub_render.c								\
+	src/cub_file.c			src/pixel_put.c									\
+	src/player_init.c		src/player_move.c
 
 LIBSRC=libft/ft_atoi.c		libft/ft_calloc.c		libft/ft_isalpha.c		\
 	libft/ft_isdigit.c		libft/ft_isascii.c		libft/ft_itoa_base.c	\
