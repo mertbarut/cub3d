@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 15:11:27 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/13 00:57:15 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/13 22:47:15 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	player_init(t_player *player, double fov, t_cubfile *cubfile)
 	// for now, assume it is fixed
 	(void)cubfile;
 	
-	player->pos.x = 22;
-	player->pos.y = 12;
+	player->pos.x = 12;
+	player->pos.y = 5;
 
 	// get the initial direction of player from read map
 	// for now, assume it is WEST
@@ -37,4 +37,6 @@ void	player_init(t_player *player, double fov, t_cubfile *cubfile)
 	player->pln.y = fov / 100;
 	
 	// move and rotate speed
+	player->speed_move = 0.05;
+	player->speed_rotate = 0.05;
 }

@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:09:37 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/12 23:31:08 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/13 23:31:38 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	cub_draw_helper(t_data *cub, t_line *line, int color)
 {
 	while (1)
 	{
-		pixel_put(cub, line->x0, line->y0, color);
+		mlx_pixel_put(cub->mlx, cub->win, line->x0, line->y0, color);
 		if (line->x0 == line->x1 && line->y0 == line->y1)
 			break ;
 		line->e2 = line->err;
@@ -33,7 +33,8 @@ static void	cub_draw_helper(t_data *cub, t_line *line, int color)
 	}
 }
 
-void	cub_draw(t_data *cub, t_pixel *p0, t_pixel *p1)
+/* algorithm for any two pixels */
+void	cub_draw(t_data *cub, t_pixel *p0, t_pixel *p1, int color)
 {
 	t_line	line;
 
@@ -55,5 +56,18 @@ void	cub_draw(t_data *cub, t_pixel *p0, t_pixel *p1)
 		line.err = line.dx / 2;
 	else
 		line.err = -line.dy / 2;
-	cub_draw_helper(cub, &line, p0->color);
+	cub_draw_helper(cub, &line, color);
+}
+
+/* algorithm for only vertically same pixels, faster */
+void	vertical_line(t_data *cub, int x, int y1, int y2, int color)
+{
+	int	y;
+
+	y = y1;
+	while (y <= y2)
+	{
+		mlx_pixel_put(cub->mlx, cub->win, x, y, color);
+		y++;
+	}
 }

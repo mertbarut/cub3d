@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/13 02:05:12 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/13 23:31:57 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct s_player {
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	pln;
+	double		speed_move;
+	double		speed_rotate;
 }				t_player;
 
 typedef struct s_data {
@@ -63,16 +65,24 @@ typedef struct s_data {
 	void		*win;
 	int			height;
 	int			width;
-	void		*img;
-	char		*addr;
-	int			bpp;
-	int			len;
-	int			endian;
 	t_player	*player;
-	int			cols;
-	int			rows;
-	int			*map;
 }				t_data;
+
+typedef struct s_ray {
+	double		cam_x;
+	t_vector	dir;
+	t_vector	side_dist;				// length of ray from current position to next x or y-side
+	t_vector	delta_dist;				// length of ray from one x or y-side to next x or y-side
+	int			tile_x;					// position of tile the player is in
+	int			tile_y;					// ditto
+	int			step_x;					// what direction to step in x or y-direction (either +1 or -1)
+	int			step_y;					// ditto
+	int			hit;
+	int			side;
+	int			color;
+	t_pixel		draw_start;
+	t_pixel		draw_end;
+}				t_ray;
 
 typedef struct s_cubfile {
 	char	*line[1080];
@@ -84,17 +94,17 @@ typedef struct s_cubfile {
 
 /* PIXEL */
 void	pixel_put(t_data *data, int x, int y, int color);
+void	vertical_line(t_data *cub, int x, int y1, int y2, int color);
 
 /* PLAYER */
 void	player_init(t_player *player, double fov, t_cubfile *cubfile);
-int		player_move(int key, t_data *cub);
 
 /* CUB3D */
 void	cub_init(t_data *cub, t_player *player);
 void	cub_read(t_cubfile *cubfile, int argc, char *argv[]);
-int		cub_close(int keycode, t_data *cub);
 int		cub_render(t_data *cub);
-void	cub_draw(t_data *cub, t_pixel *p0, t_pixel *p1);
+void	cub_draw(t_data *cub, t_pixel *p0, t_pixel *p1, int color);
 int		cub_file(t_cubfile *cubfile);
+int		cub_key(int key, t_data *cub);
 
 #endif

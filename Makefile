@@ -6,16 +6,16 @@
 #    By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/25 22:19:01 by mbarut            #+#    #+#              #
-#    Updated: 2021/12/12 23:29:38 by mbarut           ###   ########.fr        #
+#    Updated: 2021/12/13 22:53:48 by mbarut           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=cub3d
 
-SRC=src/cub_close.c			src/cub_draw.c			src/cub_init.c			\
+SRC=src/cub_draw.c			src/cub_init.c									\
 	src/cub_read.c			src/cub_render.c								\
 	src/cub_file.c			src/pixel_put.c									\
-	src/player_init.c		src/player_move.c
+	src/player_init.c		src/cub_key.c
 
 LIBSRC=libft/ft_atoi.c		libft/ft_calloc.c		libft/ft_isalpha.c		\
 	libft/ft_isdigit.c		libft/ft_isascii.c		libft/ft_itoa_base.c	\

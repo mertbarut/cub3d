@@ -6,12 +6,12 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 12:45:18 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/12 23:01:58 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/13 22:40:00 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
+/*
 static void	cub_get(int argc, char *argv[], t_cubfile *cubfile)
 {
 	char	*path_file;
@@ -60,3 +60,4 @@ void	cub_read(t_cubfile *cubfile, int argc, char *argv[])
 	}
 	close(cubfile->fd);
 }
+*/
