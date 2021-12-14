@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/13 23:31:57 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/14 12:47:50 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
-# include <mlx.h>
+# include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 # include "../gnl/get_next_line.h"
 

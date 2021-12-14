@@ -6,7 +6,7 @@
 #    By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/25 22:19:01 by mbarut            #+#    #+#              #
-#    Updated: 2021/12/13 22:53:48 by mbarut           ###   ########.fr        #
+#    Updated: 2021/12/14 13:00:06 by mbarut           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,19 @@ GNL=gnl/get_next_line.c
 
 DRIVER=driver/main.c
 
+OS := $(shell uname)
+
 CC=gcc
 
-CFLAGS= -lmlx -lXext -lX11 -lm -lz -o
+CFLAGS_LINUX= -Iminilibx/mlx.h minilibx/libmlx.a -lXext -lX11 -lm -lz -o
+
+CFLAGS_MACOS= -Iminilibx/mlx.h minilibx/libmlx.a -L/usr/X11/lib -lXext -lX11 -lm -lz -o 
+
+ifeq ($(OS), Darwin)
+CFLAGS= $(CFLAGS_MACOS)
+else
+CFLAGS= $(CFLAGS_LINUX)
+endif
 
 LIBDIR=./libft
 
@@ -48,17 +58,23 @@ LIBFT=libft/libft.a
 
 GNLDIR=./gnl
 
+MINILIBX_DIR=./minilibx
+
 all: $(NAME)
 
 $(NAME):
 	make all -C $(LIBDIR)
+	make all -C $(MINILIBX_DIR)
 	$(CC) -L/usr/local/lib -I/usr/local/include -g $(DRIVER) $(SRC) $(GNL) $(LIBFT) $(CFLAGS) $(NAME)
 
 clean:
 	@rm -f ./*.o $(LIBDIR)/*.o $(GNLDIR)/*.o
 
 fclean: clean
-	@rm -f $(NAME) $(LIBFT)
+	@rm -f $(NAME)
+	@make fclean -C $(LIBDIR)
+	@rm -rf ./cub3d.dSYM
+	@make clean -C $(MINILIBX_DIR)
 
 re: fclean all
 
