@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 18:00:55 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/14 12:18:46 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/14 13:08:35 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		cub_key(int key, t_data *cub)
 	if (key == 0xFF1B)
 	{
 		mlx_destroy_window(cub->mlx, cub->win);
-		//mlx_destroy_display(cub->mlx);
+		mlx_destroy_display(cub->mlx);
 		free(cub->mlx);
 		exit(EXIT_SUCCESS);
 	}
