@@ -6,13 +6,15 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 15:55:04 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/13 23:34:33 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/16 16:16:09 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
 extern	int	map[24][24];
+extern uint32_t  texture[8][TEX_W * TEX_H];
+extern uint32_t  buffer[TEX_H][TEX_W];
 
 void	raycasting_init(int x, t_ray *ray, t_player *player)
 {
@@ -81,25 +83,60 @@ void	raycasting_send(t_ray *ray, t_player *player)
 
 void	raycasting_setpixel(int x, t_ray *ray, t_player *player)
 {
-	double	perp_wall_dist;
-	int		line_height;
-	
 	ray->draw_start.x = x;
 	ray->draw_end.x = x;
     if (ray->side == 0)
-		perp_wall_dist = (ray->tile_x - player->pos.x + (1 - ray->step_x) / 2) / ray->dir.x;
+		ray->perp_wall_dist = (ray->tile_x - player->pos.x + (1 - ray->step_x) / 2) / ray->dir.x;
     else
-		perp_wall_dist = (ray->tile_y - player->pos.y + (1 - ray->step_y) / 2) / ray->dir.y;
-	line_height = (int)(SCREEN_H / perp_wall_dist);
-	ray->draw_start.y = (int)(-line_height / 2 + SCREEN_H / 2);
-	ray->draw_end.y = (int)(line_height / 2 + SCREEN_H / 2);
+		ray->perp_wall_dist = (ray->tile_y - player->pos.y + (1 - ray->step_y) / 2) / ray->dir.y;
+	ray->line_height = (int)(SCREEN_H / ray->perp_wall_dist);
+	ray->draw_start.y = (int)(-ray->line_height / 2 + SCREEN_H / 2);
+	ray->draw_end.y = (int)(ray->line_height / 2 + SCREEN_H / 2);
 	if (ray->draw_start.y < 0)
 		ray->draw_start.y = 0;
 	if (ray->draw_end.y >= SCREEN_H)
 		ray->draw_end.y = SCREEN_H - 1;
 }
 
-void	raycasting_setcolor(t_ray *ray, t_player *player)
+/* TEXTURE */
+
+void	raycasting_setpixel_texture(t_texture *t, t_ray *ray, t_player *player)
+{
+	ray->texture_i = map[ray->tile_x][ray->tile_y] - 1;
+	if (ray->side == 0)
+		ray->wall_x = player->pos.y * ray->perp_wall_dist * ray->dir.y;
+	else
+		ray->wall_x = player->pos.x * ray->perp_wall_dist * ray->dir.x;
+	ray->wall_x -= floor(ray->wall_x);
+	ray->texture_x = (int)(ray->wall_x) * (double)(t->width);
+	if (ray->side == 0 && ray->dir.x < 0)
+		ray->texture_x = t->width - ray->texture_x - 1;
+	if (ray->side == 1 && ray->dir.y > 0)
+		ray->texture_x = t->width - ray->texture_x - 1;
+}
+
+void	raycasting_setcolor_texture(int x, t_texture *t, t_ray *ray, t_player *player)
+{
+	int	y;
+	
+	t->step = 1.0 * t->height / ray->line_height;
+	t->pos = (ray->draw_start.y - SCREEN_H / 2 * ray->line_height / 2) * t->step;
+	y = ray->draw_start.y;
+	while (y < ray->draw_end.y)
+	{
+		ray->texture_y = (int)t->pos & (t->height - 1);
+		t->pos += t->step;
+		ray->color = texture[ray->texture_i][t->height * ray->texture_y + ray->texture_x];
+		if (ray->side == 1)
+			ray->color = (ray->color >> 1) & 8355711;
+        buffer[y][x] = ray->color;
+		y++;
+	}
+}
+
+/* /TEXTURE */
+
+void	raycasting_setcolor_basic(t_ray *ray, t_player *player)
 {
 	if (map[ray->tile_x][ray->tile_y] == 1)
 		ray->color = 0xde3163;
@@ -129,15 +166,38 @@ void	raycasting_basic(t_data *cub)
 		raycasting_calc(&ray, player);
 		raycasting_send(&ray, player);
 		raycasting_setpixel(x, &ray, player);
-		raycasting_setcolor(&ray, player);
+		raycasting_setcolor_basic(&ray, player);
 		vertical_line(cub, x, ray.draw_start.y, ray.draw_end.y, ray.color);
     	//cub_draw(cub, &ray.draw_start, &ray.draw_end, ray.color);
 		x++;
 	}
 }
 
+void	raycasting_textured(t_data *cub)
+{
+	t_ray		ray;
+	t_player	*player;
+	t_texture	*texture;
+	int	x;
+
+	player = cub->player;
+	texture = cub->texture;
+	x = 0;
+	while (x < SCREEN_W)
+	{
+		raycasting_init(x, &ray, player);
+		raycasting_calc(&ray, player);
+		raycasting_send(&ray, player);
+		raycasting_setpixel_texture(texture, &ray, player);
+		raycasting_setcolor_texture(x, texture, &ray, player);
+		x++;
+	}
+	draw_buffer(cub);
+}
+
 int		cub_render(t_data *cub)
 {
+	//raycasting_textured(cub);
 	raycasting_basic(cub);
 	return(0);
 }

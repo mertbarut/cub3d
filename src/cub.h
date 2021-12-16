@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/14 12:47:50 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/16 16:13:39 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 
 # define SCREEN_H 480
 # define SCREEN_W 640
+
+# define TEX_H 64
+# define TEX_W 64
 
 typedef struct s_line {
 	int		x0;
@@ -60,12 +63,25 @@ typedef struct s_player {
 	double		speed_rotate;
 }				t_player;
 
+typedef struct s_texture
+{
+	int			height;
+	int			width;
+	int			color_xor;
+	int			color_x;
+	int			color_y;
+	int			color_xy;
+	double		pos;
+	double		step;
+}				t_texture;
+
 typedef struct s_data {
 	void		*mlx;
 	void		*win;
 	int			height;
 	int			width;
 	t_player	*player;
+	t_texture	*texture;
 }				t_data;
 
 typedef struct s_ray {
@@ -82,6 +98,12 @@ typedef struct s_ray {
 	int			color;
 	t_pixel		draw_start;
 	t_pixel		draw_end;
+	double		perp_wall_dist;
+	int			texture_i;
+	double		wall_x;
+	int			texture_x;
+	int			texture_y;
+	int			line_height;	
 }				t_ray;
 
 typedef struct s_cubfile {
@@ -92,12 +114,16 @@ typedef struct s_cubfile {
 	size_t	row_count;
 }				t_cubfile;
 
-/* PIXEL */
+/* RENDERING */
 void	pixel_put(t_data *data, int x, int y, int color);
 void	vertical_line(t_data *cub, int x, int y1, int y2, int color);
+void	draw_buffer(t_data *cub);
 
 /* PLAYER */
 void	player_init(t_player *player, double fov, t_cubfile *cubfile);
+
+/* TEXTURES */
+void	texture_init(t_data *cub, t_texture *t);
 
 /* CUB3D */
 void	cub_init(t_data *cub, t_player *player);

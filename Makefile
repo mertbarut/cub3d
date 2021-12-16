@@ -6,13 +6,13 @@
 #    By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/25 22:19:01 by mbarut            #+#    #+#              #
-#    Updated: 2021/12/14 13:00:06 by mbarut           ###   ########.fr        #
+#    Updated: 2021/12/16 12:49:08 by mbarut           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=cub3d
 
-SRC=src/cub_draw.c			src/cub_init.c									\
+SRC=src/cub_draw.c			src/cub_init.c			src/texture_init.c		\
 	src/cub_read.c			src/cub_render.c								\
 	src/cub_file.c			src/pixel_put.c									\
 	src/player_init.c		src/cub_key.c
@@ -77,6 +77,9 @@ fclean: clean
 	@make clean -C $(MINILIBX_DIR)
 
 re: fclean all
+
+fast:
+	$(CC) -L/usr/local/lib -I/usr/local/include -g $(DRIVER) $(SRC) $(GNL) $(LIBFT) $(CFLAGS) $(NAME)
 
 norm:
 	norminette $(SRC) $(LIBSRC) $(DRIVER) src/*.h libft/*.h gnl/*.h

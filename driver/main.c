@@ -6,12 +6,11 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 21:14:12 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/14 12:02:33 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/16 14:30:46 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../src/cub.h"
-#include <mlx.h>
 
 /* this is just for testing, a real map parser is needed */
 int map[24][24] =
@@ -42,15 +41,23 @@ int map[24][24] =
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
+/* preliminary implementation of textures, final textures must be read from files */
+
+uint32_t  buffer[SCREEN_H][SCREEN_W];
+uint32_t  texture[8][TEX_W * TEX_H];
+
 int	main(int argc, char *argv[])
 {
 	t_data		cub;
 	t_player	player;
+  t_texture texture;
 
 	/* init */
 
 	player_init(&player, 66, NULL);
 	cub_init(&cub, &player);
+
+  texture_init(&cub, &texture);
 
 	cub.mlx = mlx_init();
 	cub.win = mlx_new_window(cub.mlx, SCREEN_W, SCREEN_H, "cub3d");

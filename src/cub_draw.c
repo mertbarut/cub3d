@@ -6,11 +6,13 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:09:37 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/13 23:31:38 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/16 16:13:11 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+extern uint32_t  buffer[TEX_H][TEX_W];
 
 static void	cub_draw_helper(t_data *cub, t_line *line, int color)
 {
@@ -68,6 +70,26 @@ void	vertical_line(t_data *cub, int x, int y1, int y2, int color)
 	while (y <= y2)
 	{
 		mlx_pixel_put(cub->mlx, cub->win, x, y, color);
+		y++;
+	}
+}
+
+/* algorithm for drawing a buffer onto window */
+void	draw_buffer(t_data *cub)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < SCREEN_H)
+	{
+		x = 0;
+		while (x < SCREEN_W)
+		{
+			if (buffer[y][x] > 0)
+				mlx_pixel_put(cub->mlx, cub->win, x, y, buffer[y][x]);
+			x++;
+		}
 		y++;
 	}
 }
