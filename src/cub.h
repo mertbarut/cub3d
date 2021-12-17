@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/16 16:13:39 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/17 23:36:41 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 
 # define TEX_H 64
 # define TEX_W 64
+# define TEX_N 8
 
 typedef struct s_line {
 	int		x0;
@@ -65,23 +66,36 @@ typedef struct s_player {
 
 typedef struct s_texture
 {
+	int			count;
 	int			height;
 	int			width;
 	int			color_xor;
 	int			color_x;
 	int			color_y;
 	int			color_xy;
+	int			container[8][TEX_W * TEX_H];
 	double		pos;
 	double		step;
 }				t_texture;
 
+typedef struct	s_img
+{
+	void	*img;
+	int		*data;
+	int		size;
+	int		bpp;
+	int		endian;
+}				t_img;
+
 typedef struct s_data {
 	void		*mlx;
 	void		*win;
+	t_img		*img;
 	int			height;
 	int			width;
 	t_player	*player;
 	t_texture	*texture;
+	int			buffer[SCREEN_H][SCREEN_W];
 }				t_data;
 
 typedef struct s_ray {
@@ -132,5 +146,8 @@ int		cub_render(t_data *cub);
 void	cub_draw(t_data *cub, t_pixel *p0, t_pixel *p1, int color);
 int		cub_file(t_cubfile *cubfile);
 int		cub_key(int key, t_data *cub);
+
+/* IMG */
+void	img_init(t_data *cub, t_img	*img);
 
 #endif

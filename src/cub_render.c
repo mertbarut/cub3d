@@ -6,15 +6,13 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 15:55:04 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/16 16:16:09 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/17 23:31:17 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
 extern	int	map[24][24];
-extern uint32_t  texture[8][TEX_W * TEX_H];
-extern uint32_t  buffer[TEX_H][TEX_W];
 
 void	raycasting_init(int x, t_ray *ray, t_player *player)
 {
@@ -100,36 +98,37 @@ void	raycasting_setpixel(int x, t_ray *ray, t_player *player)
 
 /* TEXTURE */
 
-void	raycasting_setpixel_texture(t_texture *t, t_ray *ray, t_player *player)
+void	raycasting_getposition_texture(t_texture *t, t_ray *ray, t_player *player)
 {
 	ray->texture_i = map[ray->tile_x][ray->tile_y] - 1;
 	if (ray->side == 0)
-		ray->wall_x = player->pos.y * ray->perp_wall_dist * ray->dir.y;
+		ray->wall_x = player->pos.y + ray->perp_wall_dist * ray->dir.y;
 	else
-		ray->wall_x = player->pos.x * ray->perp_wall_dist * ray->dir.x;
+		ray->wall_x = player->pos.x + ray->perp_wall_dist * ray->dir.x;
 	ray->wall_x -= floor(ray->wall_x);
-	ray->texture_x = (int)(ray->wall_x) * (double)(t->width);
-	if (ray->side == 0 && ray->dir.x < 0)
+	ray->texture_x = (int)(ray->wall_x * (double)(t->width));
+	if (ray->side == 0 && ray->dir.x > 0)
 		ray->texture_x = t->width - ray->texture_x - 1;
-	if (ray->side == 1 && ray->dir.y > 0)
+	if (ray->side == 1 && ray->dir.y < 0)
 		ray->texture_x = t->width - ray->texture_x - 1;
 }
 
-void	raycasting_setcolor_texture(int x, t_texture *t, t_ray *ray, t_player *player)
+void	raycasting_setcolor_texture(int x, t_texture *t, t_ray *ray, t_data *cub)
 {
 	int	y;
-	
-	t->step = 1.0 * t->height / ray->line_height;
-	t->pos = (ray->draw_start.y - SCREEN_H / 2 * ray->line_height / 2) * t->step;
+	int color;
+
 	y = ray->draw_start.y;
+	t->step = 1.0 * t->height / ray->line_height;
+	t->pos = (y - (double)SCREEN_H / 2 + (double)ray->line_height / 2) * t->step;
 	while (y < ray->draw_end.y)
 	{
 		ray->texture_y = (int)t->pos & (t->height - 1);
 		t->pos += t->step;
-		ray->color = texture[ray->texture_i][t->height * ray->texture_y + ray->texture_x];
+		color = t->container[ray->texture_i][t->height * ray->texture_y + ray->texture_x];
 		if (ray->side == 1)
-			ray->color = (ray->color >> 1) & 8355711;
-        buffer[y][x] = ray->color;
+			color = (color >> 1) & 0x7F7F7F;
+        cub->buffer[y][x] = color;
 		y++;
 	}
 }
@@ -168,7 +167,7 @@ void	raycasting_basic(t_data *cub)
 		raycasting_setpixel(x, &ray, player);
 		raycasting_setcolor_basic(&ray, player);
 		vertical_line(cub, x, ray.draw_start.y, ray.draw_end.y, ray.color);
-    	//cub_draw(cub, &ray.draw_start, &ray.draw_end, ray.color);
+		//cub_draw(cub, &ray.draw_start, &ray.draw_end, ray.color);
 		x++;
 	}
 }
@@ -188,8 +187,9 @@ void	raycasting_textured(t_data *cub)
 		raycasting_init(x, &ray, player);
 		raycasting_calc(&ray, player);
 		raycasting_send(&ray, player);
-		raycasting_setpixel_texture(texture, &ray, player);
-		raycasting_setcolor_texture(x, texture, &ray, player);
+		raycasting_setpixel(x, &ray, player);
+		raycasting_getposition_texture(texture, &ray, player);
+		raycasting_setcolor_texture(x, texture, &ray, cub);
 		x++;
 	}
 	draw_buffer(cub);
@@ -197,7 +197,7 @@ void	raycasting_textured(t_data *cub)
 
 int		cub_render(t_data *cub)
 {
-	//raycasting_textured(cub);
-	raycasting_basic(cub);
+	raycasting_textured(cub);
+	//raycasting_basic(cub);
 	return(0);
 }

@@ -6,7 +6,7 @@
 #    By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/25 22:19:01 by mbarut            #+#    #+#              #
-#    Updated: 2021/12/16 12:49:08 by mbarut           ###   ########.fr        #
+#    Updated: 2021/12/17 23:37:33 by mbarut           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME=cub3d
 SRC=src/cub_draw.c			src/cub_init.c			src/texture_init.c		\
 	src/cub_read.c			src/cub_render.c								\
 	src/cub_file.c			src/pixel_put.c									\
-	src/player_init.c		src/cub_key.c
+	src/player_init.c		src/cub_key.c			src/img_init.c
 
 LIBSRC=libft/ft_atoi.c		libft/ft_calloc.c		libft/ft_isalpha.c		\
 	libft/ft_isdigit.c		libft/ft_isascii.c		libft/ft_itoa_base.c	\
@@ -42,9 +42,9 @@ OS := $(shell uname)
 
 CC=gcc
 
-CFLAGS_LINUX= -Iminilibx/mlx.h minilibx/libmlx.a -lXext -lX11 -lm -lz -o
+CFLAGS_LINUX= minilibx/libmlx.a -lXext -lX11 -lm -lz -o
 
-CFLAGS_MACOS= -Iminilibx/mlx.h minilibx/libmlx.a -L/usr/X11/lib -lXext -lX11 -lm -lz -o 
+CFLAGS_MACOS= minilibx/libmlx.a -L/usr/X11/lib -lXext -lX11 -lm -lz -o 
 
 ifeq ($(OS), Darwin)
 CFLAGS= $(CFLAGS_MACOS)
@@ -65,7 +65,7 @@ all: $(NAME)
 $(NAME):
 	make all -C $(LIBDIR)
 	make all -C $(MINILIBX_DIR)
-	$(CC) -L/usr/local/lib -I/usr/local/include -g $(DRIVER) $(SRC) $(GNL) $(LIBFT) $(CFLAGS) $(NAME)
+	$(CC) -g $(DRIVER) $(SRC) $(GNL) $(LIBFT) $(CFLAGS) $(NAME)
 
 clean:
 	@rm -f ./*.o $(LIBDIR)/*.o $(GNLDIR)/*.o
@@ -79,7 +79,7 @@ fclean: clean
 re: fclean all
 
 fast:
-	$(CC) -L/usr/local/lib -I/usr/local/include -g $(DRIVER) $(SRC) $(GNL) $(LIBFT) $(CFLAGS) $(NAME)
+	$(CC) -g $(DRIVER) $(SRC) $(GNL) $(LIBFT) $(CFLAGS) $(NAME)
 
 norm:
 	norminette $(SRC) $(LIBSRC) $(DRIVER) src/*.h libft/*.h gnl/*.h
