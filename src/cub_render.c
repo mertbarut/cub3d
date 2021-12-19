@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 15:55:04 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/17 23:31:17 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/19 12:33:57 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,9 +195,40 @@ void	raycasting_textured(t_data *cub)
 	draw_buffer(cub);
 }
 
+int		cub_boot(t_data *cub, int limit)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < limit)
+	{
+		mlx_put_image_to_window(cub->mlx, cub->win, cub->logo->img, 0, 0);
+		if (i > limit / 1.8)
+		{
+			j = 0;
+			while (j < SCREEN_W * SCREEN_H)
+			{
+				if (cub->logo->data[j] > 0)
+					cub->logo->data[j] = 0;
+				j++;
+			}
+		}
+		if (i == limit - 1 && ++cub->boot)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int		cub_render(t_data *cub)
 {
-	raycasting_textured(cub);
+	if (!cub->boot && cub_boot(cub, 2022))
+		return (0);
+	if (!cub->start)
+		mlx_put_image_to_window(cub->mlx, cub->win, cub->menu->img, 0, 0);
+	else
+		raycasting_textured(cub);
 	//raycasting_basic(cub);
 	return(0);
 }

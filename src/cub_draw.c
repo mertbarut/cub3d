@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:09:37 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/17 23:14:09 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/19 12:11:08 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,23 @@ void	vertical_line(t_data *cub, int x, int y1, int y2, int color)
 /* algorithm for drawing a buffer onto window */
 void	draw_buffer(t_data *cub)
 {
-	t_img	*img;
+	t_img	*frame;
 	int	x;
 	int	y;
 
-	img = cub->img;
+	frame = cub->frame;
 	y = 0;
 	while (y < cub->height)
 	{
 		x = 0;
 		while (x < cub->width)
 		{
-			img->data[y * cub->width + x] = cub->buffer[y][x];
+			frame->data[y * cub->width + x] = cub->buffer[y][x];
 			cub->buffer[y][x] = 0;
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(cub->mlx, cub->win, img->img, 0, 0);
+	mlx_put_image_to_window(cub->mlx, cub->win, frame->img, 0, 0);
+	//mlx_put_image_to_window(cub->mlx, cub->win, cub->img2->img, 5 * SCREEN_W / 6,  5 * SCREEN_H / 6);
 }

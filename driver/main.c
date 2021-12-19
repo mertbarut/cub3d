@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 21:14:12 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/17 23:36:15 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/19 11:50:45 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,21 @@ int	main(int argc, char *argv[])
 	t_data		cub;
 	t_player	player;
 	t_texture	texture;
-	t_img		img;
+	
 
+	int width, height;
+	
 	/* init */
 	player_init(&player, 66, NULL);
 	cub_init(&cub, &player);
-	img_init(&cub, &img);
+	img_init(&cub);
+
 	texture_init(&cub, &texture);
-	
+
 	/* hooks */
 	mlx_loop_hook(cub.mlx, cub_render, &cub);
 	mlx_hook(cub.win, 2, 1L << 0, cub_key, &cub);
+
 	/* loop */
 	mlx_loop(cub.mlx);
 }

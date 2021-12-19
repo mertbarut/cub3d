@@ -6,13 +6,13 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 12:12:28 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/17 23:20:50 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/18 21:33:56 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	texture_generate(int x, int y, t_texture *t)
+void	texture_generate(t_data *cub, int x, int y, t_texture *t)
 {
 	int	i;
 
@@ -21,7 +21,8 @@ void	texture_generate(int x, int y, t_texture *t)
 	t->color_xor = t->color_x ^ (y * 0x100 / t->height);
 	t->color_y = y * 0x100 / t->height;
 	t->color_xy = y * 0x80 / t->height + x * 0x80 / t->width;
-	t->container[0][i] = 0x10000 * 0xFE * (x != y && x != t->width - y); //flat red texture with black cross
+	//t->container[0][i] = 0x10000 * 0xFE * (x != y && x != t->width - y); //flat red texture with black cross
+	t->container[0][i] = cub->img2->data[i]; //flat red texture with black cross
 	t->container[1][i] = t->color_xy + 0x100 * t->color_xy + 0x10000 * t->color_xy; //sloped greyscale
 	t->container[2][i] = 0x100 * t->color_xy + 0x10000 * t->color_xy; //sloped yellow gradient
 	t->container[3][i] = t->color_xor + 0x100 * t->color_xor + 0x10000 * t->color_xor; //xor greyscale
@@ -47,7 +48,7 @@ void	texture_init(t_data *cub, t_texture *t)
 		y = 0;
 		while (y < t->height)
 		{
-			texture_generate(x, y, t);
+			texture_generate(cub, x, y, t);
 			y++;
 		}
 		x++;

@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 18:00:55 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/16 11:20:17 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/19 12:26:26 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,31 @@ static void	player_move_handle(int key, t_data *cub) // last argument will have 
 	}
 }
 
+void	cub_exit(t_data *cub)
+{
+	mlx_destroy_window(cub->mlx, cub->win);
+	mlx_destroy_display(cub->mlx);
+	mlx_destroy_image(cub->mlx, cub->frame->img);
+	mlx_destroy_image(cub->mlx, cub->img2->img);
+	mlx_destroy_image(cub->mlx, cub->logo->img);
+	mlx_destroy_image(cub->mlx, cub->menu->img);
+	free(cub->mlx);
+	free(cub->frame);
+	free(cub->img2);
+	free(cub->logo);
+	free(cub->menu);
+	exit(EXIT_SUCCESS);
+}
+
 int		cub_key(int key, t_data *cub)
 {
+	if (key == ' ')
+		cub->start = 1;
 	if (key == 'w' || key == 's' || key == 'e' || key == 'q'
-	|| key == 'W' || key == 'S' || key == 'E' || key == 'Q'
-	|| key == 'a' || key == 'A' || key == 'd' || key == 'D')
+		|| key == 'W' || key == 'S' || key == 'E' || key == 'Q'
+		|| key == 'a' || key == 'A' || key == 'd' || key == 'D')
 		player_move_handle(key, cub);
-	if (key == 0xFF1B)
-	{
-		mlx_destroy_window(cub->mlx, cub->win);
-		mlx_destroy_display(cub->mlx);
-		free(cub->mlx);
-		exit(EXIT_SUCCESS);
-	}
-	return(0);
+	else if (key == 0xFF1B)
+		cub_exit(cub);
+	return (0);
 }

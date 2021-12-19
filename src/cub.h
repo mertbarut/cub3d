@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/17 23:36:41 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/19 12:09:52 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,24 @@ typedef struct	s_img
 	int		size;
 	int		bpp;
 	int		endian;
+	int		width;
+	int		height;
 }				t_img;
 
 typedef struct s_data {
 	void		*mlx;
 	void		*win;
-	t_img		*img;
+	t_img		*frame;
+	t_img		*img2;
+	t_img		*logo;
+	t_img		*menu;
 	int			height;
 	int			width;
 	t_player	*player;
 	t_texture	*texture;
 	int			buffer[SCREEN_H][SCREEN_W];
+	int			start;
+	int			boot;
 }				t_data;
 
 typedef struct s_ray {
@@ -148,6 +155,6 @@ int		cub_file(t_cubfile *cubfile);
 int		cub_key(int key, t_data *cub);
 
 /* IMG */
-void	img_init(t_data *cub, t_img	*img);
+void	img_init(t_data *cub);
 
 #endif
