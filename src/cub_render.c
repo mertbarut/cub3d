@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 15:55:04 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/19 12:33:57 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/20 13:49:58 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,15 @@ void	raycasting_setcolor_texture(int x, t_texture *t, t_ray *ray, t_data *cub)
 {
 	int	y;
 	int color;
+	int	top;
+	int bottom;
 
 	y = ray->draw_start.y;
 	t->step = 1.0 * t->height / ray->line_height;
 	t->pos = (y - (double)SCREEN_H / 2 + (double)ray->line_height / 2) * t->step;
+	top = 0;
+	while (top < y)
+		cub->buffer[top++][x] = cub->bg_color_ceiling;
 	while (y < ray->draw_end.y)
 	{
 		ray->texture_y = (int)t->pos & (t->height - 1);
@@ -131,6 +136,9 @@ void	raycasting_setcolor_texture(int x, t_texture *t, t_ray *ray, t_data *cub)
         cub->buffer[y][x] = color;
 		y++;
 	}
+	bottom = y;
+	while (bottom < SCREEN_H)
+		cub->buffer[bottom++][x] = cub->bg_color_floor;
 }
 
 /* /TEXTURE */

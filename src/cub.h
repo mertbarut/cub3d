@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/20 13:28:13 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/20 13:35:31 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ typedef struct s_data {
 	int			buffer[SCREEN_H][SCREEN_W];
 	int			start;
 	int			boot;
+	int			bg_color_floor;
+	int			bg_color_ceiling;
 }				t_data;
 
 typedef struct s_ray {

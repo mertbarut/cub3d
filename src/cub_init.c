@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 15:51:03 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/19 02:11:42 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/20 13:51:13 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,6 @@ void	cub_init(t_data *cub, t_player *player)
 	}
 	cub->start = 0;
 	cub->boot = 0;
+	cub->bg_color_ceiling = 0x6495ed;
+	cub->bg_color_floor = 0x9fe2bf;
 }
