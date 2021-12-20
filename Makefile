@@ -6,14 +6,14 @@
 #    By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/25 22:19:01 by mbarut            #+#    #+#              #
-#    Updated: 2021/12/17 23:37:33 by mbarut           ###   ########.fr        #
+#    Updated: 2021/12/20 13:06:42 by mbarut           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=cub3d
 
 SRC=src/cub_draw.c			src/cub_init.c			src/texture_init.c		\
-	src/cub_read.c			src/cub_render.c								\
+	src/cub_read.c			src/cub_render.c		src/cub_exit.c			\
 	src/cub_file.c			src/pixel_put.c									\
 	src/player_init.c		src/cub_key.c			src/img_init.c
 

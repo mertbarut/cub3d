@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/19 12:09:52 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/20 13:06:06 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ int		cub_render(t_data *cub);
 void	cub_draw(t_data *cub, t_pixel *p0, t_pixel *p1, int color);
 int		cub_file(t_cubfile *cubfile);
 int		cub_key(int key, t_data *cub);
+void	cub_exit(t_data *cub);
 
 /* IMG */
 void	img_init(t_data *cub);
