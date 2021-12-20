@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/20 13:06:06 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/20 13:28:13 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,12 @@ void	draw_buffer(t_data *cub);
 
 /* PLAYER */
 void	player_init(t_player *player, double fov, t_cubfile *cubfile);
+void	player_move_forward(t_data *cub);
+void	player_move_backward(t_data *cub);
+void	player_move_right(t_data *cub);
+void	player_move_left(t_data *cub);
+void	player_rotate_right(t_data *cub);
+void	player_rotate_left(t_data *cub);
 
 /* TEXTURES */
 void	texture_init(t_data *cub, t_texture *t);
