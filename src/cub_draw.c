@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:09:37 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/20 13:39:40 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/20 15:01:29 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void	draw_buffer(t_data *cub)
 		y++;
 	}
 	mlx_put_image_to_window(cub->mlx, cub->win, frame->img, 0, 0);
+	//mlx_string_put(cub->mlx, cub->win, 10, 10, 0x000000, "TEST");
 	//mlx_put_image_to_window(cub->mlx, cub->win, cub->img2->img, 5 * SCREEN_W / 6,  5 * SCREEN_H / 6);
 }

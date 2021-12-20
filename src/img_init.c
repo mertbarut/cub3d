@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 23:33:52 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/20 12:31:57 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/20 17:43:06 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_img	*img_xpm(t_data *cub, char *path)
 void	img_init(t_data *cub)
 {
 	cub->frame = img_newframe(cub);
-	cub->img2 = img_xpm(cub, "../cub3d/textures/player64.xpm");
-	cub->logo = img_xpm(cub, "../cub3d/img/cub_42.xpm");
-	cub->menu = img_xpm(cub, "../cub3d/img/cub_menu.xpm");
+	cub->img_side_n = img_xpm(cub, "textures/player64.xpm");
+	cub->logo = img_xpm(cub, "img/cub_42.xpm");
+	cub->menu = img_xpm(cub, "img/cub_menu.xpm");
 }

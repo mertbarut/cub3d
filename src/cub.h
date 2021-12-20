@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/20 13:35:31 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/20 17:12:00 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,10 @@ typedef struct s_data {
 	void		*mlx;
 	void		*win;
 	t_img		*frame;
-	t_img		*img2;
+	t_img		*img_side_n;
+	t_img		*img_side_s;
+	t_img		*img_side_w;
+	t_img		*img_side_e;
 	t_img		*logo;
 	t_img		*menu;
 	int			height;
