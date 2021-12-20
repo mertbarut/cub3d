@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/20 17:12:00 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/20 18:28:04 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@
 # define TEX_H 64
 # define TEX_W 64
 # define TEX_N 8
+
+# define PLAYER_FOV	66
+# define PLAYER_ROTATE_SPEED 0.05
+# define PLAYER_MOVE_SPEED 0.05
 
 typedef struct s_line {
 	int		x0;
@@ -164,7 +168,7 @@ int		cub_render(t_data *cub);
 void	cub_draw(t_data *cub, t_pixel *p0, t_pixel *p1, int color);
 int		cub_file(t_cubfile *cubfile);
 int		cub_key(int key, t_data *cub);
-void	cub_exit(t_data *cub);
+void	cub_exit(t_data *cub, char *str, int flag_mlx);
 
 /* IMG */
 void	img_init(t_data *cub);

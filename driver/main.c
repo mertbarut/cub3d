@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 21:14:12 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/20 17:08:20 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/20 18:05:01 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,9 @@ int	main(int argc, char *argv[])
 	t_texture	texture;
 	
 	/* init */
-	player_init(&player, 66, NULL);
+	player_init(&player, PLAYER_FOV, NULL);
 	cub_init(&cub, &player);
 	img_init(&cub);
-
 	texture_init(&cub, &texture);
 
 	/* hooks */
