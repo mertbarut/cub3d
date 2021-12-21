@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/20 18:28:04 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/21 19:27:36 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@
 # define PLAYER_FOV	66
 # define PLAYER_ROTATE_SPEED 0.05
 # define PLAYER_MOVE_SPEED 0.05
+
+enum direction
+{
+	south,
+	west,
+	north,
+	east
+};
 
 typedef struct s_line {
 	int		x0;
@@ -123,6 +131,8 @@ typedef struct s_ray {
 	int			tile_y;					// ditto
 	int			step_x;					// what direction to step in x or y-direction (either +1 or -1)
 	int			step_y;					// ditto
+	int			n_x;
+	int			n_y;
 	int			hit;
 	int			side;
 	int			color;

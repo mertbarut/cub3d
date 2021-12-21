@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 15:55:04 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/20 13:49:58 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/21 19:34:49 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	raycasting_init(int x, t_ray *ray, t_player *player)
 	ray->hit = 0;
 	ray->step_x = 0;
 	ray->step_y = 0;
+	ray->n_y = 0;
+	ray->n_x = 0;
 	ray->cam_x = 2 * x / (double)SCREEN_W - 1;
 	ray->dir.x = player->dir.x + player->pln.x * ray->cam_x;
 	ray->dir.y = player->dir.y + player->pln.y * ray->cam_x;
@@ -58,7 +60,7 @@ void	raycasting_calc(t_ray *ray, t_player *player)
 	}
 }
 
-void	raycasting_send(t_ray *ray, t_player *player)
+void	raycasting_send(int x, t_ray *ray, t_player *player)
 {
 	while (ray->hit == 0)
 	{
@@ -67,15 +69,20 @@ void	raycasting_send(t_ray *ray, t_player *player)
 			ray->side_dist.x += ray->delta_dist.x;
 			ray->tile_x += ray->step_x;
 			ray->side = 0;
+			ray->n_x++;
 		}
 		else
 		{
 			ray->side_dist.y += ray->delta_dist.y;
 			ray->tile_y += ray->step_y;
 			ray->side = 1;
+			ray->n_y++;
 		}
 		if (map[ray->tile_x][ray->tile_y] > 0)
+		{
 			ray->hit = 1;
+			//printf("ray #%d has hit a block after %d x moves and %d y moves.\n", x, ray->n_x, ray->n_y);
+		}
 	}
 }
 
@@ -100,17 +107,32 @@ void	raycasting_setpixel(int x, t_ray *ray, t_player *player)
 
 void	raycasting_getposition_texture(t_texture *t, t_ray *ray, t_player *player)
 {
-	ray->texture_i = map[ray->tile_x][ray->tile_y] - 1;
 	if (ray->side == 0)
 		ray->wall_x = player->pos.y + ray->perp_wall_dist * ray->dir.y;
 	else
 		ray->wall_x = player->pos.x + ray->perp_wall_dist * ray->dir.x;
 	ray->wall_x -= floor(ray->wall_x);
 	ray->texture_x = (int)(ray->wall_x * (double)(t->width));
-	if (ray->side == 0 && ray->dir.x > 0)
+	if (ray->side == 0 && ray->dir.x > 0) // SOUTH WALL
+	{
 		ray->texture_x = t->width - ray->texture_x - 1;
-	if (ray->side == 1 && ray->dir.y < 0)
+		ray->texture_i = south;
+	}
+	if (ray->side == 1 && ray->dir.y < 0) // WEST WALL
+	{
 		ray->texture_x = t->width - ray->texture_x - 1;
+		ray->texture_i = west;
+	}
+	if (ray->side == 0 && ray->dir.x <= 0) // NORTH WALL
+	{
+		//ray->texture_x = t->width - ray->texture_x - 1;
+		ray->texture_i = north;
+	}
+	if (ray->side == 1 && ray->dir.y >= 0) // EAST WALL
+	{
+		//ray->texture_x = t->width - ray->texture_x - 1;
+		ray->texture_i = east;
+	}
 }
 
 void	raycasting_setcolor_texture(int x, t_texture *t, t_ray *ray, t_data *cub)
@@ -139,6 +161,30 @@ void	raycasting_setcolor_texture(int x, t_texture *t, t_ray *ray, t_data *cub)
 	bottom = y;
 	while (bottom < SCREEN_H)
 		cub->buffer[bottom++][x] = cub->bg_color_floor;
+}
+
+void	raycasting_find_side(t_ray *ray, t_texture *t, t_data *cub)
+{
+	if (ray->side == 0 && ray->dir.x > 0) // SOUTH WALL
+	{
+		ray->texture_x = t->width - ray->texture_x - 1;
+		ray->texture_i = south;
+	}
+	if (ray->side == 1 && ray->dir.y < 0) // WEST WALL
+	{
+		ray->texture_x = t->width - ray->texture_x - 1;
+		ray->texture_i = west;
+	}
+	if (ray->side == 0 && ray->dir.x <= 0) // NORTH WALL
+	{
+		//ray->texture_x = t->width - ray->texture_x - 1;
+		ray->texture_i = north;
+	}
+	if (ray->side == 1 && ray->dir.y >= 0) // EAST WALL
+	{
+		//ray->texture_x = t->width - ray->texture_x - 1;
+		ray->texture_i = east;
+	}
 }
 
 /* /TEXTURE */
@@ -171,12 +217,27 @@ void	raycasting_basic(t_data *cub)
 	{
 		raycasting_init(x, &ray, player);
 		raycasting_calc(&ray, player);
-		raycasting_send(&ray, player);
+		raycasting_send(x, &ray, player);
 		raycasting_setpixel(x, &ray, player);
 		raycasting_setcolor_basic(&ray, player);
 		vertical_line(cub, x, ray.draw_start.y, ray.draw_end.y, ray.color);
 		//cub_draw(cub, &ray.draw_start, &ray.draw_end, ray.color);
 		x++;
+	}
+}
+
+void	whereamilookingat(int x, t_ray *ray)
+{
+	if (x == SCREEN_W / 2)
+	{
+		if (ray->side == 0 && ray->dir.x > 0)
+			printf("DIRECTION: SOUTH\n");
+		else if (ray->side == 1 && ray->dir.y < 0)
+			printf("DIRECTION: WEST\n");
+		else if (ray->side == 0 && ray->dir.x <= 0)
+			printf("DIRECTION: NORTH\n");
+		else if (ray->side == 1 && ray->dir.y >= 0)
+			printf("DIRECTION: EAST\n");
 	}
 }
 
@@ -194,10 +255,12 @@ void	raycasting_textured(t_data *cub)
 	{
 		raycasting_init(x, &ray, player);
 		raycasting_calc(&ray, player);
-		raycasting_send(&ray, player);
+		raycasting_send(x, &ray, player);
 		raycasting_setpixel(x, &ray, player);
 		raycasting_getposition_texture(texture, &ray, player);
 		raycasting_setcolor_texture(x, texture, &ray, cub);
+		raycasting_find_side(&ray, texture, cub);
+		whereamilookingat(x, &ray);
 		x++;
 	}
 	draw_buffer(cub);
