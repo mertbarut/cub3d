@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:09:37 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/20 15:01:29 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/22 16:15:42 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	draw_buffer(t_data *cub)
 		while (x < cub->width)
 		{
 			frame->data[y * cub->width + x] = cub->buffer[y][x];
-			cub->buffer[y][x] = 0;
+			//cub->buffer[y][x] = 0;
 			x++;
 		}
 		y++;

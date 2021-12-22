@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 15:55:04 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/21 19:34:49 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/22 16:13:01 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,9 @@ void	raycasting_setcolor_texture(int x, t_texture *t, t_ray *ray, t_data *cub)
 		ray->texture_y = (int)t->pos & (t->height - 1);
 		t->pos += t->step;
 		color = t->container[ray->texture_i][t->height * ray->texture_y + ray->texture_x];
-		if (ray->side == 1)
-			color = (color >> 1) & 0x7F7F7F;
+		// give ns sides shadow
+		//if (ray->side == 1)
+		//	color = (color >> 1) & 0x7F7F7F;
         cub->buffer[y][x] = color;
 		y++;
 	}
@@ -260,7 +261,7 @@ void	raycasting_textured(t_data *cub)
 		raycasting_getposition_texture(texture, &ray, player);
 		raycasting_setcolor_texture(x, texture, &ray, cub);
 		raycasting_find_side(&ray, texture, cub);
-		whereamilookingat(x, &ray);
+		//whereamilookingat(x, &ray);
 		x++;
 	}
 	draw_buffer(cub);
