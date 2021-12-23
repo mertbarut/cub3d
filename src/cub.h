@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/21 19:27:36 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/23 01:07:07 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct	s_img
 	int		endian;
 	int		width;
 	int		height;
+	int		i;
 }				t_img;
 
 typedef struct s_data {
@@ -109,6 +110,7 @@ typedef struct s_data {
 	t_img		*img_side_s;
 	t_img		*img_side_w;
 	t_img		*img_side_e;
+	t_img		*img_coffee;
 	t_img		*logo;
 	t_img		*menu;
 	int			height;

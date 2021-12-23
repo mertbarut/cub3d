@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:09:37 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/22 16:15:42 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/23 00:37:05 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,20 @@ void	vertical_line(t_data *cub, int x, int y1, int y2, int color)
 	}
 }
 
+void	draw_self(int x, int y, t_data *cub)
+{
+	if (x >= (SCREEN_W - cub->img_coffee->width) / 2
+		&& x < (SCREEN_W + cub->img_coffee->width) / 2
+		&& y >= SCREEN_H - cub->img_coffee->height
+		&& y < SCREEN_H)
+	{
+		if (cub->img_coffee->data[cub->img_coffee->i++] != 0x489848)
+			cub->buffer[y][x] = cub->img_coffee->data[cub->img_coffee->i - 1];
+		if (cub->img_coffee->i / (cub->img_coffee->width * cub->img_coffee->height))
+			cub->img_coffee->i = 0;
+	}
+}
+
 /* algorithm for drawing a buffer onto window */
 void	draw_buffer(t_data *cub)
 {
@@ -86,13 +100,13 @@ void	draw_buffer(t_data *cub)
 		x = 0;
 		while (x < cub->width)
 		{
+			draw_self(x, y, cub);
 			frame->data[y * cub->width + x] = cub->buffer[y][x];
-			//cub->buffer[y][x] = 0;
 			x++;
 		}
 		y++;
 	}
 	mlx_put_image_to_window(cub->mlx, cub->win, frame->img, 0, 0);
-	//mlx_string_put(cub->mlx, cub->win, 10, 10, 0x000000, "TEST");
-	//mlx_put_image_to_window(cub->mlx, cub->win, cub->img2->img, 5 * SCREEN_W / 6,  5 * SCREEN_H / 6);
+	//mlx_string_put(cub->mlx, cub->win, 10, 10, 0x000000, "HELLO THERE!");
+	//mlx_put_image_to_window(cub->mlx, cub->win, cub->img_side_e->img, 5 * SCREEN_W / 6,  5 * SCREEN_H / 6);
 }

@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 23:33:52 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/22 17:10:20 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/23 00:02:55 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_img	*img_xpm(t_data *cub, char *path)
 	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size, &img->endian);
 	img->width = width;
 	img->height = height;
+	img->i = 0;
 	return (img);
 }
 
@@ -49,4 +50,6 @@ void	img_init(t_data *cub)
 	cub->img_side_w = img_xpm(cub, "textures/plainwall64.xpm");
 	cub->img_side_n = img_xpm(cub, "textures/innerglass64.xpm");
 	cub->img_side_e = img_xpm(cub, "textures/employee64.xpm");
+
+	cub->img_coffee = img_xpm(cub, "textures/coffee256.xpm");
 }
