@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_render.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 15:55:04 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/30 12:42:07 by dmylonas         ###   ########.fr       */
+/*   Updated: 2021/12/30 23:46:02 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void	raycasting_setpixel(int x, t_ray *ray, t_player *player)
 		ray->perp_wall_dist = (ray->tile_x - player->pos.x + (1 - ray->step_x) / 2) / ray->dir.x;
     else
 		ray->perp_wall_dist = (ray->tile_y - player->pos.y + (1 - ray->step_y) / 2) / ray->dir.y;
+	if (ray->perp_wall_dist < MIN_PWD)
+		ray->perp_wall_dist = MIN_PWD;
 	ray->line_height = (int)(SCREEN_H / ray->perp_wall_dist);
 	ray->draw_start.y = (int)(-ray->line_height / 2 + SCREEN_H / 2);
 	ray->draw_end.y = (int)(ray->line_height / 2 + SCREEN_H / 2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/30 19:59:58 by dmylonas         ###   ########.fr       */
+/*   Updated: 2021/12/30 23:57:08 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@
 # define EAST 1
 # define SOUTH 2
 # define WEST 3
+
+/* Minimum tolerable value of perpendicular wall distance */
+/* Must be small enough to be not noticable, large enough to not cause overflow */
+# define MIN_PWD 0.01
+
+/* FOV is now a constant */
+# define FOV 66 
 
 enum direction
 {
