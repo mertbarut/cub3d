@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+         #
+#    By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/18 21:57:20 by mbarut            #+#    #+#              #
-#    Updated: 2021/12/12 14:12:41 by mbarut           ###   ########.fr        #
+#    Updated: 2021/12/30 18:01:26 by dmylonas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub_render.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 15:55:04 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/23 13:27:00 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/30 12:42:07 by dmylonas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-extern	int	map[24][24];
+// extern	int	map[24][24];
 
 void	raycasting_init(int x, t_ray *ray, t_player *player)
 {
@@ -60,7 +60,7 @@ void	raycasting_calc(t_ray *ray, t_player *player)
 	}
 }
 
-void	raycasting_send(int x, t_ray *ray, t_player *player)
+void	raycasting_send(t_data *cub, int x, t_ray *ray, t_player *player)
 {
 	while (ray->hit == 0)
 	{
@@ -78,7 +78,7 @@ void	raycasting_send(int x, t_ray *ray, t_player *player)
 			ray->side = 1;
 			ray->n_y++;
 		}
-		if (map[ray->tile_x][ray->tile_y] > 0)
+		if (cub->map[ray->tile_x][ray->tile_y] > 0)
 		{
 			ray->hit = 1;
 			//printf("ray #%d has hit a block after %d x moves and %d y moves.\n", x, ray->n_x, ray->n_y);
@@ -190,42 +190,43 @@ void	raycasting_find_side(t_ray *ray, t_texture *t, t_data *cub)
 
 /* /TEXTURE */
 
-void	raycasting_setcolor_basic(t_ray *ray, t_player *player)
-{
-	if (map[ray->tile_x][ray->tile_y] == 1)
-		ray->color = 0xde3163;
-	else if (map[ray->tile_x][ray->tile_y] == 2)
-		ray->color = 0x9fe2bf;
-	else if (map[ray->tile_x][ray->tile_y] == 3)
-		ray->color = 0x6495ed;
-	else if (map[ray->tile_x][ray->tile_y] == 4)
-		ray->color = 0xffffff;
-	else
-		ray->color = 0xdfff00;
-	if (ray->side == 1)
-		ray->color = ray->color / 2;
-}
+// void	raycasting_setcolor_basic(t_ray *ray, t_player *player)
+// {
+// 	printf("\n\n\nll\n");
+// 	if (map[ray->tile_x][ray->tile_y] == 1)
+// 		ray->color = 0xde3163;
+// 	else if (map[ray->tile_x][ray->tile_y] == 2)
+// 		ray->color = 0x9fe2bf;
+// 	else if (map[ray->tile_x][ray->tile_y] == 3)
+// 		ray->color = 0x6495ed;
+// 	else if (map[ray->tile_x][ray->tile_y] == 4)
+// 		ray->color = 0xffffff;
+// 	else
+// 		ray->color = 0xdfff00;
+// 	if (ray->side == 1)
+// 		ray->color = ray->color / 2;
+// }
 
-void	raycasting_basic(t_data *cub)
-{
-	t_ray		ray;
-	t_player	*player;
-	int	x;
+// void	raycasting_basic(t_data *cub)
+// {
+// 	t_ray		ray;
+// 	t_player	*player;
+// 	int	x;
 
-	player = cub->player;
-	x = 0;
-	while (x < SCREEN_W)
-	{
-		raycasting_init(x, &ray, player);
-		raycasting_calc(&ray, player);
-		raycasting_send(x, &ray, player);
-		raycasting_setpixel(x, &ray, player);
-		raycasting_setcolor_basic(&ray, player);
-		vertical_line(cub, x, ray.draw_start.y, ray.draw_end.y, ray.color);
-		//cub_draw(cub, &ray.draw_start, &ray.draw_end, ray.color);
-		x++;
-	}
-}
+// 	player = cub->player;
+// 	x = 0;
+// 	while (x < SCREEN_W)
+// 	{
+// 		raycasting_init(x, &ray, player);
+// 		raycasting_calc(&ray, player);
+// 		raycasting_send(x, &ray, player);
+// 		raycasting_setpixel(x, &ray, player);
+// 		raycasting_setcolor_basic(&ray, player);
+// 		vertical_line(cub, x, ray.draw_start.y, ray.draw_end.y, ray.color);
+// 		//cub_draw(cub, &ray.draw_start, &ray.draw_end, ray.color);
+// 		x++;
+// 	}
+// }
 
 void	whereamilookingat(int x, t_ray *ray)
 {
@@ -256,7 +257,7 @@ void	raycasting_textured(t_data *cub)
 	{
 		raycasting_init(x, &ray, player);
 		raycasting_calc(&ray, player);
-		raycasting_send(x, &ray, player);
+		raycasting_send(cub, x, &ray, player);
 		raycasting_setpixel(x, &ray, player);
 		raycasting_getposition_texture(texture, &ray, player);
 		raycasting_setcolor_texture(x, texture, &ray, cub);

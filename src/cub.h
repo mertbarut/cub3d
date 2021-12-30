@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/23 13:33:31 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/30 19:59:58 by dmylonas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@
 # define PLAYER_FOV	66
 # define PLAYER_ROTATE_SPEED 0.05
 # define PLAYER_MOVE_SPEED 0.05
+
+# define NORTH 0
+# define EAST 1
+# define SOUTH 2
+# define WEST 3
 
 enum direction
 {
@@ -103,6 +108,20 @@ typedef struct	s_img
 }				t_img;
 
 typedef struct s_data {
+	char		*line;//line from gnl
+	char		*path[4];
+	int			rgb_floor[3];//each cell has a value, 0-255
+	int			rgb_ceiling[3];
+	int			fcolor;
+	int			ccolor;
+
+	int			max_row_length;
+	int			total_rows;
+	int			**map;
+	char		player_dir;
+	int			player_x;
+	int			player_y;
+	
 	void		*mlx;
 	void		*win;
 	t_img		*frame;
@@ -156,13 +175,27 @@ typedef struct s_cubfile {
 	size_t	row_count;
 }				t_cubfile;
 
+/* PARSING */
+void	parsing(t_data *cub, char *file_path);
+void	error_handl(t_data *cub, int signal);
+void	free_double(void **to_free);
+
+void	parse_colors(t_data *cub, int rgb[3], char *line);
+void	color_check_and_final(t_data *cub);
+void	parse_settings(t_data *cub, char *line);
+
+void	fill_map(t_data *cub, int fd);
+void	check_map(t_data *cub);
+
+void	check_neighb_to_spaces(t_data *cub);
+
 /* RENDERING */
 void	pixel_put(t_data *data, int x, int y, int color);
 void	vertical_line(t_data *cub, int x, int y1, int y2, int color);
 void	draw_buffer(t_data *cub);
 
 /* PLAYER */
-void	player_init(t_player *player, double fov, t_cubfile *cubfile);
+void	player_init(t_data *cub, t_player *player, double fov, t_cubfile *cubfile);
 void	player_move_forward(t_data *cub);
 void	player_move_backward(t_data *cub);
 void	player_move_right(t_data *cub);

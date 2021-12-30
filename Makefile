@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+         #
+#    By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/25 22:19:01 by mbarut            #+#    #+#              #
-#    Updated: 2021/12/20 13:28:34 by mbarut           ###   ########.fr        #
+#    Updated: 2021/12/30 18:59:51 by dmylonas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,10 @@ SRC=src/cub_draw.c			src/cub_init.c			src/texture_init.c		\
 	src/cub_read.c			src/cub_render.c		src/cub_exit.c			\
 	src/cub_file.c			src/pixel_put.c									\
 	src/player_init.c		src/cub_key.c			src/img_init.c			\
-	src/player_move.c		src/player_rotate.c
+	src/player_move.c		src/player_rotate.c 							\
+	src/parsing/parse.c		src/parsing/for_map.c							\
+	src/parsing/for_settings.c						src/parsing/extra.c		\
+	src/parsing/parsing_color.c
 
 LIBSRC=libft/ft_atoi.c		libft/ft_calloc.c		libft/ft_isalpha.c		\
 	libft/ft_isdigit.c		libft/ft_isascii.c		libft/ft_itoa_base.c	\
@@ -63,7 +66,7 @@ MINILIBX_DIR=./minilibx
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(SRC)
 	make all -C $(LIBDIR)
 	make all -C $(MINILIBX_DIR)
 	$(CC) -g $(DRIVER) $(SRC) $(GNL) $(LIBFT) $(CFLAGS) $(NAME)
