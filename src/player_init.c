@@ -6,56 +6,52 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 15:11:27 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/31 00:32:31 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/31 17:50:51 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	player_face(t_data *cub, t_player *player, double fov)
+static void	player_face_x(t_data *cub, t_player *player)
 {
-	if (cub->player_dir == 'N')
-	{
-		player->dir.x = -1;
-		player->dir.y = 0;
-
-		player->pln.x = 0;
-		player->pln.y = (fov * -1) / 100;
-	}
-	else if (cub->player_dir == 'E')
+	if (cub->file->flag_player_direction == 'E')
 	{
 		player->dir.x = 0;
 		player->dir.y = 1;
-
-		player->pln.x = (fov * -1) / 100;
+		player->pln.x = ((double)PLAYER_FOV * -1) / 100;
 		player->pln.y = 0;
 	}
-	else if (cub->player_dir == 'S')
-	{
-		player->dir.x = 1;
-		player->dir.y = 0;
-
-		player->pln.x = 0;
-		player->pln.y = (fov * 1) / 100;
-	}
-	else if (cub->player_dir == 'W')
+	else if (cub->file->flag_player_direction == 'W')
 	{
 		player->dir.x = 0;
 		player->dir.y = -1;
-
-		player->pln.x = (fov * 1) / 100;
+		player->pln.x = ((double)PLAYER_FOV * 1) / 100;
 		player->pln.y = 0;
 	}
 }
 
-void	player_init(t_data *cub, t_player *player, double fov, t_cubfile *cubfile)
+static void	player_face_y(t_data *cub, t_player *player)
 {
-	player->pos.x = cub->player_x;
-	player->pos.y = cub->player_y;
+	if (cub->file->flag_player_direction == 'N')
+	{
+		player->dir.x = -1;
+		player->dir.y = 0;
+		player->pln.x = 0;
+		player->pln.y = ((double)PLAYER_FOV * -1) / 100;
+	}
+	else if (cub->file->flag_player_direction == 'S')
+	{
+		player->dir.x = 1;
+		player->dir.y = 0;
+		player->pln.x = 0;
+		player->pln.y = ((double)PLAYER_FOV * 1) / 100;
+	}
+}
 
-	player_face(cub, player, fov);
-	
-	// move and rotate speed
+void	player_init(t_data *cub, t_player *player)
+{
+	player_face_x(cub, player);
+	player_face_y(cub, player);
 	player->speed_move = PLAYER_MOVE_SPEED;
 	player->speed_rotate = PLAYER_ROTATE_SPEED;
 }

@@ -6,13 +6,13 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 13:03:50 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/20 18:27:49 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/31 15:00:42 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	cub_clear_mlx(t_data *cub)
+static void	cub_clear_mlx(t_data *cub)
 {
 	mlx_destroy_window(cub->mlx, cub->win);
 	mlx_destroy_display(cub->mlx);

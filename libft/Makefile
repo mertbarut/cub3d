@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+         #
+#    By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/18 21:57:20 by mbarut            #+#    #+#              #
-#    Updated: 2021/12/30 18:01:26 by dmylonas         ###   ########.fr        #
+#    Updated: 2021/12/31 14:36:46 by mbarut           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC=ft_atoi.c ft_calloc.c ft_isalpha.c ft_isdigit.c ft_itoa.c ft_itoa_base.c \
 	ft_isprint.c ft_memccpy.c ft_memcmp.c ft_memmove.c ft_putchar_fd.c \
 	ft_putnbr_fd.c ft_split.c ft_strdup.c ft_strlcat.c ft_strlen.c ft_strncmp.c \
 	ft_strrchr.c ft_substr.c ft_toupper.c ft_strsub.c ft_strnew.c ft_strdel.c \
-	ft_memdel.c ft_split_free.c
+	ft_memdel.c ft_split_free.c ft_strcmp.c
 
 SRCBONUS=ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c \
 		ft_lstdelone.c ft_lstiter.c ft_lstsize.c \
@@ -32,7 +32,7 @@ OBJ=ft_atoi.o ft_calloc.o ft_isalpha.o ft_isdigit.o ft_itoa.o ft_itoa_base.o \
 	ft_isprint.o ft_memccpy.o ft_memcmp.o ft_memmove.o ft_putchar_fd.o \
 	ft_putnbr_fd.o ft_split.o ft_strdup.o ft_strlcat.o ft_strlen.o ft_strncmp.o \
 	ft_strrchr.o ft_substr.o ft_toupper.o ft_strsub.o ft_strnew.o ft_strdel.o \
-	ft_memdel.o ft_split_free.o
+	ft_memdel.o ft_split_free.o ft_strcmp.o
 
 OBJBONUS=ft_lstadd_back.o ft_lstadd_front.o ft_lstclear.o \
 		ft_lstdelone.o ft_lstiter.o ft_lstsize.o \

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 15:51:03 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/28 19:04:19 by dmylonas         ###   ########.fr       */
+/*   Updated: 2021/12/31 16:42:16 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	buffer_init(t_data *cub)
+static void	buffer_init(t_data *cub)
 {
 	int	i;
 	int	j;
@@ -31,7 +31,6 @@ void	cub_init(t_data *cub, t_player *player)
 {
 	cub->height = SCREEN_H;
 	cub->width = SCREEN_W;
-	cub->player = player;
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
 		cub_exit(cub, "Error: mlx_init() failed\n", 0);
@@ -41,6 +40,4 @@ void	cub_init(t_data *cub, t_player *player)
 	buffer_init(cub);
 	cub->start = 0;
 	cub->boot = 0;
-	cub->bg_color_ceiling = cub->ccolor;
-	cub->bg_color_floor = cub->fcolor;
 }

@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/30 23:57:08 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/31 18:55:59 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 
 # define TEX_H 64
 # define TEX_W 64
-# define TEX_N 8
 
 # define PLAYER_FOV	66
 # define PLAYER_ROTATE_SPEED 0.05
@@ -41,19 +40,24 @@
 # define SOUTH 2
 # define WEST 3
 
-/* Minimum tolerable value of perpendicular wall distance */
-/* Must be small enough to be not noticable, large enough to not cause overflow */
 # define MIN_PWD 0.01
 
-/* FOV is now a constant */
-# define FOV 66 
+# define TRANSPARENT 0x489848
 
-enum direction
+# define BOOT_TIMER	2022
+# define BOOT_TIMER_MODIFIER 1.8
+
+# define LEFT -1
+# define RIGHT 1
+# define DOWN -1
+# define UP 1
+
+enum e_direction
 {
-	south,
-	west,
+	east,
 	north,
-	east
+	west,
+	south
 };
 
 typedef struct s_line {
@@ -97,12 +101,12 @@ typedef struct s_texture
 	int			color_x;
 	int			color_y;
 	int			color_xy;
-	int			container[8][TEX_W * TEX_H];
+	int			container[4][TEX_W * TEX_H];
 	double		pos;
 	double		step;
 }				t_texture;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void	*img;
 	int		*data;
@@ -114,21 +118,19 @@ typedef struct	s_img
 	int		i;
 }				t_img;
 
-typedef struct s_data {
-	char		*line;//line from gnl
-	char		*path[4];
-	int			rgb_floor[3];//each cell has a value, 0-255
-	int			rgb_ceiling[3];
-	int			fcolor;
-	int			ccolor;
-
-	int			max_row_length;
-	int			total_rows;
+typedef struct s_cubfile {
 	int			**map;
-	char		player_dir;
-	int			player_x;
-	int			player_y;
-	
+	char		*line;
+	char		*path[4];
+	int			rgb_color_floor[3];
+	int			rgb_color_ceiling[3];
+	int			max_rows;
+	int			n_rows;
+	char		flag_player_direction;
+}				t_cubfile;
+
+typedef struct s_data {
+	t_cubfile	*file;		
 	void		*mlx;
 	void		*win;
 	t_img		*frame;
@@ -146,27 +148,24 @@ typedef struct s_data {
 	int			buffer[SCREEN_H][SCREEN_W];
 	int			start;
 	int			boot;
-	int			bg_color_floor;
-	int			bg_color_ceiling;
+	int			color_floor;
+	int			color_ceiling;
 }				t_data;
 
 typedef struct s_ray {
-	double		cam_x;
 	t_vector	dir;
-	t_vector	side_dist;				// length of ray from current position to next x or y-side
-	t_vector	delta_dist;				// length of ray from one x or y-side to next x or y-side
-	int			tile_x;					// position of tile the player is in
-	int			tile_y;					// ditto
-	int			step_x;					// what direction to step in x or y-direction (either +1 or -1)
-	int			step_y;					// ditto
-	int			n_x;
-	int			n_y;
+	t_vector	side_dist;
+	t_vector	delta_dist;
+	int			tile_x;
+	int			tile_y;
+	int			step_x;
+	int			step_y;
 	int			hit;
 	int			side;
 	int			color;
 	t_pixel		draw_start;
 	t_pixel		draw_end;
-	double		perp_wall_dist;
+	double		pwd;
 	int			texture_i;
 	double		wall_x;
 	int			texture_x;
@@ -174,35 +173,27 @@ typedef struct s_ray {
 	int			line_height;	
 }				t_ray;
 
-typedef struct s_cubfile {
-	char	*line[1080];
-	char	**points[1000000];
-	int		fd;
-	int		i;
-	size_t	row_count;
-}				t_cubfile;
-
 /* PARSING */
-void	parsing(t_data *cub, char *file_path);
-void	error_handl(t_data *cub, int signal);
+void	cubfile_handle(t_data *cub, const char *path);
+void	cubfile_error(int signal);
 void	free_double(void **to_free);
+void	cubfile_parsecolor(t_cubfile *f, int rgb[3]);
+void	cubfile_setcolor(t_data *cub);
+void	cubfile_configure(t_cubfile *f);
+void	cubfile_fillmap(t_data *cub, int fd);
+void	cubfile_checkmap(t_data *cub);
+void	cubfile_checkspaces(t_cubfile *f);
 
-void	parse_colors(t_data *cub, int rgb[3], char *line);
-void	color_check_and_final(t_data *cub);
-void	parse_settings(t_data *cub, char *line);
-
-void	fill_map(t_data *cub, int fd);
-void	check_map(t_data *cub);
-
-void	check_neighb_to_spaces(t_data *cub);
-
-/* RENDERING */
-void	pixel_put(t_data *data, int x, int y, int color);
-void	vertical_line(t_data *cub, int x, int y1, int y2, int color);
+/* RAYCASTING & RENDERING */
+void	raycasting_calc(t_ray *ray, t_player *player);
+void	raycasting_send(t_data *cub, int x, t_ray *ray, t_player *player);
+void	raycasting_setpixel(int x, t_ray *ray, t_player *player);
+void	raycasting_texture_getpos(t_texture *t, t_ray *ray, t_player *player);
+void	raycasting_texture_setcol(int x, t_texture *t, t_ray *ray, t_data *cub);
 void	draw_buffer(t_data *cub);
 
 /* PLAYER */
-void	player_init(t_data *cub, t_player *player, double fov, t_cubfile *cubfile);
+void	player_init(t_data *cub, t_player *player);
 void	player_move_forward(t_data *cub);
 void	player_move_backward(t_data *cub);
 void	player_move_right(t_data *cub);
@@ -214,11 +205,11 @@ void	player_rotate_left(t_data *cub);
 void	texture_init(t_data *cub, t_texture *t);
 
 /* CUB3D */
+void	cub_args(int argc, char **argv);
 void	cub_init(t_data *cub, t_player *player);
-void	cub_read(t_cubfile *cubfile, int argc, char *argv[]);
+int		cub_boot(t_data *cub);
 int		cub_render(t_data *cub);
 void	cub_draw(t_data *cub, t_pixel *p0, t_pixel *p1, int color);
-int		cub_file(t_cubfile *cubfile);
 int		cub_key(int key, t_data *cub);
 void	cub_exit(t_data *cub, char *str, int flag_mlx);
 

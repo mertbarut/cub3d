@@ -3,23 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+         #
+#    By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/25 22:19:01 by mbarut            #+#    #+#              #
-#    Updated: 2021/12/30 18:59:51 by dmylonas         ###   ########.fr        #
+#    Updated: 2021/12/31 18:42:11 by mbarut           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=cub3d
 
 SRC=src/cub_draw.c			src/cub_init.c			src/texture_init.c		\
-	src/cub_read.c			src/cub_render.c		src/cub_exit.c			\
-	src/cub_file.c			src/pixel_put.c									\
+	src/cub_render.c		src/cub_exit.c									\
 	src/player_init.c		src/cub_key.c			src/img_init.c			\
 	src/player_move.c		src/player_rotate.c 							\
-	src/parsing/parse.c		src/parsing/for_map.c							\
-	src/parsing/for_settings.c						src/parsing/extra.c		\
-	src/parsing/parsing_color.c
+	src/cubfile_checkmap.c  src/cubfile_checkspaces.c						\
+	src/cubfile_configure.c src/cubfile_error.c  	src/cubfile_fillmap.c	\
+	src/cubfile_handle.c	src/cubfile_parsecolor.c						\
+	src/cub_args.c			src/cub_boot.c									\
+	src/cub_raycast.c
 
 LIBSRC=libft/ft_atoi.c		libft/ft_calloc.c		libft/ft_isalpha.c		\
 	libft/ft_isdigit.c		libft/ft_isascii.c		libft/ft_itoa_base.c	\
@@ -36,7 +37,8 @@ LIBSRC=libft/ft_atoi.c		libft/ft_calloc.c		libft/ft_isalpha.c		\
 	libft/ft_strrchr.c		libft/ft_substr.c		libft/ft_toupper.c		\
 	libft/ft_lstadd_back.c	libft/ft_lstadd_front.c	libft/ft_lstclear.c		\
 	libft/ft_lstdelone.c	libft/ft_lstiter.c		libft/ft_lstsize.c		\
-	libft/ft_lstlast.c		libft/ft_lstmap.c		libft/ft_lstnew.c
+	libft/ft_lstlast.c		libft/ft_lstmap.c		libft/ft_lstnew.c		\
+	libft/ft_strcmp.c
 
 GNL=gnl/get_next_line.c
 

@@ -6,13 +6,13 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 18:00:55 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/20 18:30:06 by mbarut           ###   ########.fr       */
+/*   Updated: 2021/12/31 18:27:16 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		cub_key(int key, t_data *cub)
+int	cub_key(int key, t_data *cub)
 {
 	if (key == ' ')
 		cub->start = 1;
