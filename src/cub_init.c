@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 15:51:03 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/31 16:42:16 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/02 14:24:02 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ static void	buffer_init(t_data *cub)
 	}
 }
 
-void	cub_init(t_data *cub, t_player *player)
+void	cub_init(t_data *cub)
 {
 	cub->height = SCREEN_H;
 	cub->width = SCREEN_W;
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
 		cub_exit(cub, "Error: mlx_init() failed\n", 0);
-	cub->win = mlx_new_window(cub->mlx, SCREEN_W, SCREEN_H, "cub3d");
+	cub->win = mlx_new_window(cub->mlx, SCREEN_W, SCREEN_H, "cub3D");
 	if (!cub->win)
 		cub_exit(cub, "Error: mlx_new_window() failed\n", 0);
 	buffer_init(cub);

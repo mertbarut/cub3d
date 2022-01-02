@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 16:08:43 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/31 18:59:34 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/02 14:28:05 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	raycasting_calc(t_ray *ray, t_player *p)
 	}
 }
 
-void	raycasting_send(t_data *cub, int x, t_ray *ray, t_player *p)
+void	raycasting_send(t_data *cub, t_ray *ray)
 {
 	while (ray->hit == 0)
 	{

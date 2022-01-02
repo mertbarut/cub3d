@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/31 18:55:59 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/02 15:49:51 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@
 # define RIGHT 1
 # define DOWN -1
 # define UP 1
+
+# define KEY_RIGHT_ARROW 0xFF51
+# define KEY_LEFT_ARROW 0xFF53
+# define KEY_ESCAPE 0xFF1B
 
 enum e_direction
 {
@@ -186,7 +190,7 @@ void	cubfile_checkspaces(t_cubfile *f);
 
 /* RAYCASTING & RENDERING */
 void	raycasting_calc(t_ray *ray, t_player *player);
-void	raycasting_send(t_data *cub, int x, t_ray *ray, t_player *player);
+void	raycasting_send(t_data *cub, t_ray *ray);
 void	raycasting_setpixel(int x, t_ray *ray, t_player *player);
 void	raycasting_texture_getpos(t_texture *t, t_ray *ray, t_player *player);
 void	raycasting_texture_setcol(int x, t_texture *t, t_ray *ray, t_data *cub);
@@ -206,12 +210,13 @@ void	texture_init(t_data *cub, t_texture *t);
 
 /* CUB3D */
 void	cub_args(int argc, char **argv);
-void	cub_init(t_data *cub, t_player *player);
+void	cub_init(t_data *cub);
 int		cub_boot(t_data *cub);
 int		cub_render(t_data *cub);
 void	cub_draw(t_data *cub, t_pixel *p0, t_pixel *p1, int color);
 int		cub_key(int key, t_data *cub);
 void	cub_exit(t_data *cub, char *str, int flag_mlx);
+int		cub_pressx(t_data *cub);
 
 /* IMG */
 void	img_init(t_data *cub);

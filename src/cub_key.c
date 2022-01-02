@@ -6,11 +6,17 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 18:00:55 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/31 18:27:16 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/02 15:50:17 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+int	cub_pressx(t_data *cub)
+{
+	cub_exit(cub, NULL, 1);
+	return (0);
+}
 
 int	cub_key(int key, t_data *cub)
 {
@@ -24,11 +30,11 @@ int	cub_key(int key, t_data *cub)
 		player_move_right(cub);
 	else if (key == 'a' || key == 'A')
 		player_move_left(cub);
-	else if (key == 'e' || key == 'E')
+	else if (key == KEY_RIGHT_ARROW)
 		player_rotate_right(cub);
-	else if (key == 'q' || key == 'Q')
+	else if (key == KEY_LEFT_ARROW)
 		player_rotate_left(cub);
-	else if (key == 0xFF1B)
+	else if (key == KEY_ESCAPE)
 		cub_exit(cub, NULL, 1);
 	return (0);
 }

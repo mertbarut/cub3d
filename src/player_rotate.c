@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 13:13:45 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/31 18:56:27 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/02 14:25:45 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	player_rotate_right(t_data *cub)
 {
 	t_player	*p;
-	double		tmp_pln_x;
 	double		tmp_dir_x;
 
 	p = cub->player;
@@ -34,7 +33,6 @@ void	player_rotate_right(t_data *cub)
 void	player_rotate_left(t_data *cub)
 {
 	t_player	*p;
-	double		tmp_pln_x;
 	double		tmp_dir_x;
 
 	p = cub->player;

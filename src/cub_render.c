@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 15:55:04 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/31 18:38:21 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/02 14:28:55 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	raycasting(t_data *cub)
 	{
 		raycasting_init(x, &ray, player);
 		raycasting_calc(&ray, player);
-		raycasting_send(cub, x, &ray, player);
+		raycasting_send(cub, &ray);
 		raycasting_setpixel(x, &ray, player);
 		raycasting_texture_getpos(texture, &ray, player);
 		raycasting_texture_setcol(x, texture, &ray, cub);
