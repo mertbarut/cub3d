@@ -6,7 +6,7 @@
 /*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:04:17 by dmylonas          #+#    #+#             */
-/*   Updated: 2022/01/03 14:04:38 by dmylonas         ###   ########.fr       */
+/*   Updated: 2022/01/03 15:38:06 by dmylonas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	cubfile_handle(t_data *cub, const char *path)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		cubfile_error(cub, 0);
-	while (get_next_line(fd, &f->line))
+	while (get_next_line(fd, &f->line, 0))
 	{
 		cubfile_configure(f, cub);
 		free_double((void **)&f->line);

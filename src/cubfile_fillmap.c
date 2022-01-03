@@ -6,7 +6,7 @@
 /*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:04:14 by dmylonas          #+#    #+#             */
-/*   Updated: 2022/01/03 13:50:59 by dmylonas         ###   ########.fr       */
+/*   Updated: 2022/01/03 15:43:59 by dmylonas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,19 @@ void	cubfile_fillmap(t_data *cub, int fd)
 	int				player;
 	int				row;
 	t_cubfile		*f;
+	int				start_map;
 
 	f = cub->file;
 	row = 0;
 	player = 0;
-	while (get_next_line(fd, &f->line))
+	start_map = 0;
+	while (get_next_line(fd, &f->line, start_map))
 	{
+		if (*f->line == '5')
+			cubfile_error(cub, 9);
 		if (((*f->line == '1') || (*f->line == ' ')))
 		{
+			start_map = 1;
 			fill_row(cub, row, &player);
 			row++;
 		}

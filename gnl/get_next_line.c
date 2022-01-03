@@ -48,16 +48,27 @@ static int	output(char **s, char **line, int ret, int fd)
 		return (appendline(&s[fd], line));
 }
 
-int	get_next_line(const int fd, char **line)
+static int	check_new_line(char **line, char c_buff, int is_map)
+{
+	if (c_buff == '\n' && is_map == 1)
+	{
+		*line = malloc(sizeof(char) * 1);
+		*line[0] = '5';
+		return (0);
+	}
+	return (1);
+}
+
+int	get_next_line(const int fd, char **line, int is_map)
 {
 	int			ret;
 	static char	*s[1080 * 3 / 2];
 	char		buff[42];
 	char		*tmp;
 
-	if (fd < 0 || line == NULL)
-		return (-1);
 	ret = read(fd, buff, 1);
+	if (check_new_line(line, buff[0], is_map) == 0)
+		return (1);
 	while (ret > 0)
 	{
 		buff[ret] = '\0';

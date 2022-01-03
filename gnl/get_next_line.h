@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 22:15:46 by mbarut            #+#    #+#             */
-/*   Updated: 2021/07/27 16:28:16 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/03 15:37:27 by dmylonas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-int		get_next_line(int fd, char **line);
+int		get_next_line(int fd, char **line, int is_map);
 
 #endif

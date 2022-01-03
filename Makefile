@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+         #
+#    By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/25 22:19:01 by mbarut            #+#    #+#              #
-#    Updated: 2022/01/02 15:46:31 by mbarut           ###   ########.fr        #
+#    Updated: 2022/01/03 15:48:26 by dmylonas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ CC=cc
 
 CFLAGS_LINUX= -Wall -Wextra -Werror minilibx/libmlx.a -lXext -lX11 -lm -lz -o
 
-CFLAGS_MACOS= -Wall -Wextra -Werror minilibx/libmlx.a -L/usr/X11/lib -lXext -lX11 -lm -lz -o 
+CFLAGS_MACOS= -Wall -Wextra -Werror minilibx/libmlx.a -L/usr/X11/lib -lXext -lX11 -lm -lz -o
 
 ifeq ($(OS), Darwin)
 CFLAGS= $(CFLAGS_MACOS)
