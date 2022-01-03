@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 13:03:50 by mbarut            #+#    #+#             */
-/*   Updated: 2022/01/03 12:21:12 by dmylonas         ###   ########.fr       */
+/*   Updated: 2022/01/03 20:32:57 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,34 @@ static void	free_paths(t_data *cub)
 
 static void	cub_clear_mlx(t_data *cub)
 {
-	mlx_destroy_image(cub->mlx, cub->frame->img);
-	mlx_destroy_image(cub->mlx, cub->img_side_n->img);
-	mlx_destroy_image(cub->mlx, cub->img_side_s->img);
-	mlx_destroy_image(cub->mlx, cub->img_side_e->img);
-	mlx_destroy_image(cub->mlx, cub->img_side_w->img);
-	mlx_destroy_image(cub->mlx, cub->logo->img);
-	mlx_destroy_image(cub->mlx, cub->menu->img);
-	mlx_destroy_image(cub->mlx, cub->img_coffee->img);
-	mlx_destroy_window(cub->mlx, cub->win);
-	mlx_destroy_display(cub->mlx);
+	if (cub->frame)
+		mlx_destroy_image(cub->mlx, cub->frame->img);
+	if (cub->img_side_n)
+		mlx_destroy_image(cub->mlx, cub->img_side_n->img);
+	if (cub->img_side_s)
+		mlx_destroy_image(cub->mlx, cub->img_side_s->img);
+	if (cub->img_side_e)
+		mlx_destroy_image(cub->mlx, cub->img_side_e->img);
+	if (cub->img_side_w)
+		mlx_destroy_image(cub->mlx, cub->img_side_w->img);
+	if (cub->logo)
+		mlx_destroy_image(cub->mlx, cub->logo->img);
+	if (cub->menu)
+		mlx_destroy_image(cub->mlx, cub->menu->img);
+	if (cub->img_coffee)
+		mlx_destroy_image(cub->mlx, cub->img_coffee->img);
+	if (cub->win)
+		mlx_destroy_window(cub->mlx, cub->win);
+	if (cub->mlx)
+		mlx_destroy_display(cub->mlx);
 }
 
-void	cub_exit(t_data *cub, char *str, int flag_mlx)
+void	cub_exit(t_data *cub, char *str, int signal)
 {
-	if (flag_mlx)
+	if (cub)
 		cub_clear_mlx(cub);
-	if (cub->mlx)
-		free(cub->mlx);
+	if (str)
+		ft_putstr_fd(str, STDOUT_FILENO);
 	if (cub->frame)
 		free(cub->frame);
 	if (cub->img_side_n)
@@ -70,15 +80,15 @@ void	cub_exit(t_data *cub, char *str, int flag_mlx)
 		free(cub->img_side_e);
 	if (cub->img_side_w)
 		free(cub->img_side_w);
+	if (cub->img_coffee)
+		free(cub->img_coffee);
 	if (cub->logo)
 		free(cub->logo);
-	if (cub->img_coffee)
-		free(cub->menu);
 	if (cub->menu)
-		free(cub->img_coffee);
-	if (str)
-		ft_putstr_fd(str, STDOUT_FILENO);
+		free(cub->menu);
+	if (cub->mlx)
+		free(cub->mlx);
 	free_map(cub);
 	free_paths(cub);
-	exit(EXIT_SUCCESS);
+	exit(signal);
 }

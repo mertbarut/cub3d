@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2022/01/03 14:26:47 by dmylonas         ###   ########.fr       */
+/*   Updated: 2022/01/03 20:21:00 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define TRANSPARENT 0x489848
 
 # define BOOT_TIMER	2022
-# define BOOT_TIMER_MODIFIER 1.8
+# define BOOT_TIMER_MODIFIER 2.2
 
 # define LEFT -1
 # define RIGHT 1
@@ -216,7 +216,7 @@ int		cub_boot(t_data *cub);
 int		cub_render(t_data *cub);
 void	cub_draw(t_data *cub, t_pixel *p0, t_pixel *p1, int color);
 int		cub_key(int key, t_data *cub);
-void	cub_exit(t_data *cub, char *str, int flag_mlx);
+void	cub_exit(t_data *cub, char *str, int signal);
 int		cub_pressx(t_data *cub);
 
 /* IMG */

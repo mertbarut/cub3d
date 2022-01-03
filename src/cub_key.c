@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 18:00:55 by mbarut            #+#    #+#             */
-/*   Updated: 2022/01/02 15:50:17 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/03 20:34:09 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	cub_pressx(t_data *cub)
 {
-	cub_exit(cub, NULL, 1);
+	cub_exit(cub, NULL, EXIT_SUCCESS);
 	return (0);
 }
 
@@ -35,6 +35,6 @@ int	cub_key(int key, t_data *cub)
 	else if (key == KEY_LEFT_ARROW)
 		player_rotate_left(cub);
 	else if (key == KEY_ESCAPE)
-		cub_exit(cub, NULL, 1);
+		cub_exit(cub, NULL, EXIT_SUCCESS);
 	return (0);
 }

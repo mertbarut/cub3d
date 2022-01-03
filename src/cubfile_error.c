@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubfile_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:09:20 by mbarut            #+#    #+#             */
-/*   Updated: 2022/01/03 17:20:40 by dmylonas         ###   ########.fr       */
+/*   Updated: 2022/01/03 20:20:43 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ void	cubfile_error(t_data *cub, int signal)
 	else if (signal == 9)
 		printf("Empty line in the map\n");
 	printf("\x1B[0m");
-	cub_exit(cub, NULL, 0);
-	exit (signal);
+	cub_exit(cub, NULL, signal);
 }
