@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:55:46 by mbarut            #+#    #+#             */
-/*   Updated: 2022/01/02 15:49:51 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/03 14:26:47 by dmylonas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,14 +179,15 @@ typedef struct s_ray {
 
 /* PARSING */
 void	cubfile_handle(t_data *cub, const char *path);
-void	cubfile_error(int signal);
+void	cubfile_error(t_data *cub, int signal);
 void	free_double(void **to_free);
-void	cubfile_parsecolor(t_cubfile *f, int rgb[3]);
+void	cubfile_parsecolor(t_cubfile *f, t_data *cub, int rgb[3]);
 void	cubfile_setcolor(t_data *cub);
-void	cubfile_configure(t_cubfile *f);
+void	cubfile_configure(t_cubfile *f, t_data *cub);
 void	cubfile_fillmap(t_data *cub, int fd);
 void	cubfile_checkmap(t_data *cub);
-void	cubfile_checkspaces(t_cubfile *f);
+void	cubfile_checkspaces(t_cubfile *f, t_data *cub);
+void	cubfile_check_zeros(t_cubfile *f, t_data *cub);
 
 /* RAYCASTING & RENDERING */
 void	raycasting_calc(t_ray *ray, t_player *player);

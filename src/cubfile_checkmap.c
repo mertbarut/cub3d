@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubfile_checkmap.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:04:14 by dmylonas          #+#    #+#             */
-/*   Updated: 2021/12/31 18:38:49 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/03 13:43:49 by dmylonas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	cubfile_checkmap(t_data *cub)
 
 	f = cub->file;
 	if (f->flag_player_direction == '\0')
-		cubfile_error(7);
+		cubfile_error(cub, 7);
 	i = 0;
 	while (i < f->max_rows)
 	{
 		if ((f->map[0][i] == 0) || (f->map[f->n_rows - 1][i] == 0))
-			cubfile_error(5);
+			cubfile_error(cub, 5);
 		i++;
 	}
 	i = 0;
@@ -32,8 +32,9 @@ void	cubfile_checkmap(t_data *cub)
 	{
 		if ((f->map[i][0] == 0)
 		|| (f->map[i][f->max_rows - 1] == 0))
-			cubfile_error(5);
+			cubfile_error(cub, 5);
 		i++;
 	}
-	cubfile_checkspaces(f);
+	cubfile_checkspaces(f, cub);
+	cubfile_check_zeros(f, cub);
 }

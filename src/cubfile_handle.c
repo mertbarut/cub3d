@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubfile_handle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:04:17 by dmylonas          #+#    #+#             */
-/*   Updated: 2021/12/31 18:41:13 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/03 14:04:38 by dmylonas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,13 @@ void	cubfile_handle(t_data *cub, const char *path)
 	file_parse_init(cub, f);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		cubfile_error(0);
+		cubfile_error(cub, 0);
 	while (get_next_line(fd, &f->line))
 	{
-		cubfile_configure(f);
+		cubfile_configure(f, cub);
 		free_double((void **)&f->line);
 	}
+	free_double((void **)&f->line);
 	close(fd);
 	cubfile_setcolor(cub);
 	fd = open(path, O_RDONLY);

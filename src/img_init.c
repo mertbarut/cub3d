@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 23:33:52 by mbarut            #+#    #+#             */
-/*   Updated: 2021/12/31 18:52:55 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/03 12:41:18 by dmylonas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_img	*img_xpm(t_data *cub, char *path)
 	img = malloc(sizeof(*img));
 	img->img = mlx_xpm_file_to_image(cub->mlx, path, &width, &height);
 	if (!(img->img))
-		cubfile_error(6);
+		cubfile_error(cub, 6);
 	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp,
 			&img->size, &img->endian);
 	img->width = width;

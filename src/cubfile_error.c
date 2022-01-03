@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   cubfile_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:09:20 by mbarut            #+#    #+#             */
-/*   Updated: 2022/01/02 16:16:19 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/03 14:27:41 by dmylonas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	cubfile_error(int signal)
+void	cubfile_error(t_data *cub, int signal)
 {
 	printf("Error\n");
+	printf("%d\n", signal);
+	cub_exit(cub, NULL, 0);
 	exit (signal);
 }
