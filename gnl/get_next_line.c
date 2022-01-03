@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: mbarut <mbarut@student.1wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 22:15:49 by mbarut            #+#    #+#             */
 /*   Updated: 2021/07/28 15:52:55 by mbarut           ###   ########.fr       */
@@ -57,7 +57,7 @@ int	get_next_line(const int fd, char **line)
 
 	if (fd < 0 || line == NULL)
 		return (-1);
-	ret = read(fd, buff, 42);
+	ret = read(fd, buff, 1);
 	while (ret > 0)
 	{
 		buff[ret] = '\0';
@@ -71,7 +71,7 @@ int	get_next_line(const int fd, char **line)
 		}
 		if (ft_strchr(s[fd], '\n'))
 			break ;
-		ret = read(fd, buff, 42);
+		ret = read(fd, buff, 1);
 	}
 	return (output(s, line, ret, fd));
 }
