@@ -6,7 +6,7 @@
 /*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:04:19 by dmylonas          #+#    #+#             */
-/*   Updated: 2022/01/03 14:27:07 by dmylonas         ###   ########.fr       */
+/*   Updated: 2022/01/04 10:53:46 by dmylonas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void	cubfile_setrgb(t_data *cub, char *line, unsigned int number, int rgb[3])
 	else if (rgb[2] < 0)
 		rgb[2] = number;
 	else if (*line)
+	{
+		printf("lol\n");
 		cubfile_error(cub, 2);
+	}
 }
 
 void	cubfile_parsecolor(t_cubfile *f, t_data *cub, int rgb[3])
@@ -55,6 +58,8 @@ void	cubfile_parsecolor(t_cubfile *f, t_data *cub, int rgb[3])
 		number = 0;
 		while (*line == ' ')
 			line++;
+		if (*line == '-')
+			cubfile_error(cub, 3);
 		while (ft_isdigit(*line))
 		{
 			if (rgb[2] >= 0)

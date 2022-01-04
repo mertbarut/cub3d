@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 13:03:50 by mbarut            #+#    #+#             */
-/*   Updated: 2022/01/03 20:32:57 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/04 11:08:00 by dmylonas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static void	free_map(t_data *cub)
+static void	free_map_and_line(t_data *cub)
 {
 	int	i;
 
@@ -26,6 +26,8 @@ static void	free_map(t_data *cub)
 		}
 		free(cub->file->map);
 	}
+	if (cub->file->line)
+		free(cub->file->line);
 }
 
 static void	free_paths(t_data *cub)
@@ -88,7 +90,7 @@ void	cub_exit(t_data *cub, char *str, int signal)
 		free(cub->menu);
 	if (cub->mlx)
 		free(cub->mlx);
-	free_map(cub);
+	free_map_and_line(cub);
 	free_paths(cub);
 	exit(signal);
 }
