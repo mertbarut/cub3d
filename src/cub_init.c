@@ -6,7 +6,7 @@
 /*   By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 15:51:03 by mbarut            #+#    #+#             */
-/*   Updated: 2022/01/03 20:34:05 by mbarut           ###   ########.fr       */
+/*   Updated: 2022/01/04 13:08:53 by mbarut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	cub_init(t_data *cub)
 	cub->width = SCREEN_W;
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
-		cub_exit(cub, "Error: mlx_init() failed\n", EXIT_FAILURE);
+		cub_exit(cub, "Error:\nmlx_init() failed\n", EXIT_FAILURE);
 	cub->win = mlx_new_window(cub->mlx, SCREEN_W, SCREEN_H, "cub3D");
 	if (!cub->win)
-		cub_exit(cub, "Error: mlx_new_window() failed\n", EXIT_FAILURE);
+		cub_exit(cub, "Error:\nmlx_new_window() failed\n", EXIT_FAILURE);
 	buffer_init(cub);
 	cub->start = 0;
 	cub->boot = 0;

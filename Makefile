@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+         #
+#    By: mbarut <mbarut@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/25 22:19:01 by mbarut            #+#    #+#              #
-#    Updated: 2022/01/03 15:48:26 by dmylonas         ###   ########.fr        #
+#    Updated: 2022/01/04 13:10:28 by mbarut           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,9 +113,6 @@ fast:
 
 norm:
 	norminette $(SRC) $(LIBSRC) $(GNL) $(DRIVER) src/cub.h libft/libft.h gnl/get_next_line.h
-
-memcheck: $(NAME)
-	valgrind --leak-check=full ./fdf maps/42.fdf
 
 test: $(NAME)
 	./cub3D maps/map.cub
